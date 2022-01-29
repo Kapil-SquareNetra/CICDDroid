@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        AppCenter.start(application, "17018ce7-b45d-4905-8653-012010c4e5fb", Analytics::class.java, Crashes::class.java)
+        AppCenter.start(application, "c8f5e3ff-4e0e-491a-93bd-e7197f255107", Analytics::class.java, Crashes::class.java)
 
         calculateButton = findViewById(R.id.calculateButton)
         monthlySavingsEditText = findViewById(R.id.monthlySavingsEditText)
