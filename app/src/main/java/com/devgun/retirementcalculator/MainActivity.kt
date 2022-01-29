@@ -65,6 +65,8 @@ class MainActivity : AppCompatActivity() {
                     Analytics.trackEvent("wrong_age", properties)
                 }
 
+                resultTextView.text = "At the current rate of $interestRate%, saving $$monthly a month will have $100000 by $retirementAge."
+
                 Toast.makeText(this, "Clicked!", Toast.LENGTH_LONG).show()
             } catch (e: Exception) {
                 Analytics.trackEvent("Exception_at_click: ${e.message}")
