@@ -28,6 +28,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         AppCenter.start(application, "c8f5e3ff-4e0e-491a-93bd-e7197f255107", Analytics::class.java, Crashes::class.java)
+        val future = Crashes.hasCrashedInLastSession()
+        future.thenAccept {
+            if (it){
+                Toast.makeText(this, "Sorry the application crashed in your last session!", Toast.LENGTH_LONG).show()
+            }
+        }
 
         calculateButton = findViewById(R.id.calculateButton)
         monthlySavingsEditText = findViewById(R.id.monthlySavingsEditText)
@@ -41,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         calculateButton.setOnClickListener {
             //throw Exception("Something went wrong mf!")
-            //Crashes.generateTestCrash()
+            Crashes.generateTestCrash()
             try {
                 val interestRate: Float = interestEditText.text.toString().toFloat()
                 val currentAge: Float = ageEditText.text.toString().toFloat()
