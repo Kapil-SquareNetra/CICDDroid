@@ -42,8 +42,10 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test:rules:1.3.0-beta01'
 
     def appCenterSDKVersion = '2.2.0'
     implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSDKVersion}"
     implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSDKVersion}"
+    androidTestImplementation 'com.microsoft.appcenter:espresso-test-extension:1.4'
 }
