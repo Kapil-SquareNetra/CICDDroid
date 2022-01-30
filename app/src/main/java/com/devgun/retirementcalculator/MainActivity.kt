@@ -10,6 +10,7 @@ import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
 import kotlin.Exception
+import kotlin.math.pow
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,11 +43,11 @@ class MainActivity : AppCompatActivity() {
             //throw Exception("Something went wrong mf!")
             //Crashes.generateTestCrash()
             try {
-                val interestRate: Float? = interestEditText.text?.toString()?.toFloat()
-                val currentAge: Float? = ageEditText.text?.toString()?.toFloat()
-                val retirementAge: Float? = retirementEditText.text?.toString()?.toFloat()
-                val monthly: Float? = monthlySavingsEditText.text?.toString()?.toFloat()
-                val current: Float? = currentEditText.text?.toString()?.toFloat()
+                val interestRate: Float = interestEditText.text.toString().toFloat()
+                val currentAge: Float = ageEditText.text.toString().toFloat()
+                val retirementAge: Float = retirementEditText.text.toString().toFloat()
+                val monthly: Float = monthlySavingsEditText.text.toString().toFloat()
+                val current: Float = currentEditText.text.toString().toFloat()
 
                 val properties: HashMap<String, String> = hashMapOf()
                 properties["interest_rate"] = interestRate.toString()
@@ -65,7 +66,8 @@ class MainActivity : AppCompatActivity() {
                     Analytics.trackEvent("wrong_age", properties)
                 }
 
-                resultTextView.text = "At the current rate of $interestRate%, saving $$monthly a month will have $100000 by $retirementAge."
+                val futureSavings = calculateRetirement(interestRate, current, monthly, ((retirementAge - currentAge)* 12).toInt())
+                resultTextView.text = "At the current rate of $interestRate%, saving $$monthly a month you will have $${String.format("%f", futureSavings)} by $retirementAge."
 
                 Toast.makeText(this, "Clicked!", Toast.LENGTH_LONG).show()
             } catch (e: Exception) {
@@ -76,4 +78,15 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    fun calculateRetirement(interestRate: Float, currentSavings: Float, monthly: Float, numMonths: Int): Float{
+        var futureSavings = currentSavings * (1 + (interestRate/100/12)).pow(numMonths)
+        for (i in 1..numMonths){
+            futureSavings += monthly * (1 + (interestRate/100/12)).pow(i)
+        }
+        return futureSavings
+
+    }
+
+
 }
