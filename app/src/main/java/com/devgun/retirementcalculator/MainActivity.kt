@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                 val futureSavings = calculateRetirement(interestRate, current, monthly, ((retirementAge - currentAge)* 12).toInt())
                 resultTextView.text = "At the current rate of $interestRate%, saving $$monthly a month you will have $${String.format("%f", futureSavings)} by $retirementAge."
 
-                Toast.makeText(this, "Clicked!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Clicked", Toast.LENGTH_LONG).show()
             } catch (e: Exception) {
                 Analytics.trackEvent("Exception_at_click: ${e.message}")
             }
